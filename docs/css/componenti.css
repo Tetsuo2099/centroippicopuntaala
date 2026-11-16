@@ -15,7 +15,7 @@
 .pag-intro > * { flex: 1 1 50%; padding: 0 20px; min-width: 0; }
 .pag-intro__foto { --w1: 79.6%; --off: 30.9%; --w2: 62.7%; --sov: -63px; }
 .pag-intro__foto img:first-child { width: var(--w1); }
-.pag-intro__foto > :nth-child(2) { width: var(--w2); margin: var(--sov) 0 0 var(--off); position: relative; }
+.pag-intro__foto > :nth-child(2) { width: var(--w2); margin: var(--sov) 0 0 var(--off); position: relative; border: 7px solid #fff; }
 .pag-intro__foto--video { --w2: 60.4%; --off: 32.1%; --sov: -55px; }
 .pag-intro__foto video { background: #000; aspect-ratio: 16/9; object-fit: cover; }
 .pag-intro__foto video:nth-child(3) { width: 93.6%; margin: 0; aspect-ratio: 4/3; position: relative; }
