@@ -244,7 +244,7 @@ a.footer__btn:hover { color: var(--bianco-50); }
   opacity: .85; transition: opacity .3s;
 }
 .credits:hover { opacity: 1; }
-.credits img { height: 14px; width: auto; }
+.credits img { height: 18px; width: auto; }
 .copyright a { color: var(--oliva); text-decoration: none; font-size: 12px; transition: color .3s; }
 .copyright a:hover { color: var(--navy); }
 
