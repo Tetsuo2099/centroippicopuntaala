@@ -239,12 +239,12 @@ a.footer__btn:hover { color: var(--bianco-50); }
 .copyright__legal { text-align: right; }
 .credits-fascia { background: var(--oliva); padding: 16px 5%; text-align: center; }
 .credits {
-  display: inline-flex; align-items: center; gap: 12px;
+  display: inline-flex; align-items: center; gap: 14px;
   font: 400 13px/1 var(--f-testo); letter-spacing: .5px; color: var(--bianco); text-decoration: none;
   opacity: .85; transition: opacity .3s;
 }
 .credits:hover { opacity: 1; }
-.credits img { height: 15px; width: auto; }
+.credits img { height: 28px; width: auto; }
 .copyright a { color: var(--oliva); text-decoration: none; font-size: 12px; transition: color .3s; }
 .copyright a:hover { color: var(--navy); }
 
