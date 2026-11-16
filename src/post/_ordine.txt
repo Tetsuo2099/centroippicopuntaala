@@ -1,0 +1,14 @@
+# ordine dei post nei caroselli (home, altri articoli). I post non elencati seguono per data.
+# Un nuovo articolo va aggiunto in CIMA a questa lista.
+elementor-4760
+coppa-primavera
+tuscany-polo-tour-2026
+7-dicembre-2025-caccia-alla-volpe-simulata
+25-settembre-campionato-maremmano-2025
+coppa-italia-fise-2025-august-21-24
+sparviero-polo-cup-2025-august-2-10
+stage-di-volteggio
+psicologia-sportiva
+11-maggio-2025-tappa-del-campionato-maremmano-49-edizione
+29-settembre-2024-finale-campionato-maremmano-salto-ostacoli-e-dressage
+21-24-agosto-2024-coppa-italia-fise-us-polo-assn-trophy

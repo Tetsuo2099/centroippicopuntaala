@@ -1,0 +1,31 @@
+/* CIP — pagina Eventi: intro, agenda (carosello + calendario mensile) */
+.ev-intro { padding: 85px 20px 39px; text-align: center; }
+.ev-intro p { max-width: 979px; margin: 0 auto 20px; font-size: 18px; line-height: 1.6; }
+.ev-intro p:last-child { margin-bottom: 0; }
+
+.ev-agenda { padding: 80px 0; }
+.ev-agenda .carosello { padding: 0 5%; margin-bottom: 20px; }
+
+/* Calendario mensile (sostituisce Simple Calendar / Google Calendar) */
+.cal { max-width: 1256px; margin: 0 auto; padding: 0; font-family: var(--f-testo); }
+.cal__testa { display: grid; grid-template-columns: calc(100% / 7) 1fr calc(100% / 7); align-items: start; }
+.cal__titolo { font: 400 42px/1.2 var(--f-titolo); text-transform: uppercase; color: var(--testo); text-align: center; padding: 10px 0; margin: 0 0 20px; }
+.cal__nav { align-self: start; margin-top: 38px; height: 18px; background: none; border: 0; padding: 0; cursor: pointer; color: rgba(0,0,0,.6); }
+.cal__nav:hover, .cal__nav:focus-visible { color: #000; }
+.cal__nav svg { width: 16px; height: 16px; fill: currentColor; }
+.cal table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.cal th { padding: 5px; height: 35px; font-weight: 700; font-size: 16px; color: var(--grigio); text-align: center; }
+.cal td { height: 180px; padding: 0; vertical-align: top; border: 1px solid #fff; background: transparent; color: var(--grigio); }
+.cal td.fuori { background: rgba(0,0,0,.04); }
+.cal td.oggi { border: 1px solid #2f8de4; }
+.cal__num { display: block; padding: 2px 4px 3px; background: rgba(0,0,0,.1); font-size: 12px; line-height: 16px; text-align: right; }
+
+@media (max-width: 850px) {
+  .ev-intro { padding: 85px 20px 40px; }
+  .ev-agenda { padding: 80px 0; }
+  .cal { padding: 0 40px; }
+  .cal__titolo { font-size: 34px; }
+  .cal td { height: 57px; }
+  .cal th { padding: 5px 0; font-size: 14px; }
+  .cal__resto { display: none; }
+}

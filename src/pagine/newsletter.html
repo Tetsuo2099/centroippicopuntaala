@@ -1,0 +1,21 @@
+<!--{"title": "Newsletter - Centro Ippico Punta Ala", "description": "Iscriviti alla nostra Newsletter per rimanere sempre aggiornato su Eventi e Promozioni del Centro Ippico Punta Ala.", "og_image": "/media/2024/03/J_2064.jpg"}-->
+<section class="pag-testa" style="background-image:url('/media/2024/03/J_2064.jpg'); background-position: center 40%">
+  <h1>Newsletter</h1>
+</section>
+
+<section class="form-sez fade" style="padding-top:80px">
+  <h3 style="margin-bottom:30px">Resta aggiornato!</h3>
+  <p>Iscriviti alla nostra Newsletter per rimanere sempre aggiornato su Eventi e Promozioni</p>
+  <form class="form" action="https://api.web3forms.com/submit" method="POST" data-web3 data-ok="Grazie! Iscrizione completata.">
+    <input type="hidden" name="access_key" value="WEB3FORMS_KEY_DA_INSERIRE">
+    <input type="hidden" name="subject" value="Iscrizione newsletter">
+    <input type="hidden" name="from_name" value="Sito Centro Ippico Punta Ala">
+    <input type="hidden" name="redirect" value="https://www.centroippicopuntaala.it/newsletter/">
+    <input type="checkbox" name="botcheck" class="form__miele" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form__campo"><label class="form__label" for="n-nome">Nome</label><input type="text" id="n-nome" name="name" autocomplete="name"></div>
+    <div class="form__campo"><label class="form__label" for="n-email">Email <i>*</i></label><input type="email" id="n-email" name="email" required autocomplete="email" placeholder="Email"></div>
+    <div class="form__campo form__consenso" style="min-height:22px"><input type="checkbox" id="n-consenso" name="consenso_newsletter" value="sì" required><label for="n-consenso">Accetto di ricevere Newsletter</label></div>
+    <button class="form__invia form__invia--navy" type="submit">Iscrivimi</button>
+    <p class="form__stato" role="status" aria-live="polite"></p>
+  </form>
+</section>

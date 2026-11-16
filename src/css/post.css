@@ -1,0 +1,82 @@
+/* Articoli (single post The7/Elementor) — misure da /coppa-primavera/ */
+.post-testa {
+  position: relative; min-height: 495px; padding: 0 5%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: #000 center / cover no-repeat;
+}
+.post-testa::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.4); }
+.post-testa__titolo {
+  position: relative; max-width: 860px;
+  font: 400 56px/1.1 var(--f-titolo); text-transform: uppercase; color: var(--bianco);
+}
+.post-corpo {
+  max-width: 830px; margin: 75px auto 0; padding: 0 10px;
+  font: 400 16px/1.5 Roboto, Helvetica, Arial, Verdana, sans-serif; color: var(--grigio);
+}
+.post-corpo h2 { font: 400 56px/1.1 var(--f-titolo); text-transform: uppercase; color: var(--testo); margin-bottom: 20px; }
+.post-corpo h3 { font: 400 42px/1.2 var(--f-titolo); text-transform: uppercase; color: var(--testo); margin-bottom: 20px; }
+.post-corpo h4 { font: 600 34px/1.2 var(--f-sotto); text-transform: uppercase; color: var(--testo); margin-bottom: 20px; }
+.post-corpo h5 { font: 400 22px/1.2 var(--f-testo); color: var(--testo); margin-bottom: 15px; }
+.post-corpo h6 { font: 400 17px/1.3 var(--f-testo); color: var(--testo); margin-bottom: 15px; }
+.post-corpo a { color: var(--navy); }
+.post-corpo img, .post-corpo video, .post-corpo iframe { margin: 20px 0; }
+.post-corpo iframe { width: 100%; aspect-ratio: 16/9; height: auto; border: 0; }
+.post-corpo ul, .post-corpo ol { margin: 0 0 20px; padding-left: 20px; }
+
+/* Altri articoli: 3 per vista, card centrate con immagine arrotondata */
+.carosello--altri { padding: 75px 5% 60px; text-align: center; }
+.carosello--altri .t3 { font-size: 42px; margin-bottom: 40px; }
+.carosello--altri .carosello__traccia { max-width: 1120px; gap: 154px; }
+.card--altri { flex: 0 0 calc((100% - 308px) / 3); align-items: center; }
+.card--altri .card__img { width: 245px; max-width: 100%; aspect-ratio: 245/178; border-radius: 10px; }
+.card--altri h5 { margin: 20px 0 0; font-size: 20px; line-height: 1.2; text-align: center; }
+.carosello--altri .carosello__freccia { top: calc(50% + 40px); }
+
+@media (max-width: 1050px) {
+  .post-testa__titolo { font-size: 46px; }
+  .card--altri { flex-basis: calc((100% - 154px) / 2); }
+}
+@media (max-width: 850px) {
+  .post-testa { min-height: 525px; padding: 0 40px; }
+  .post-testa__titolo { font-size: 40px; }
+  .post-corpo { margin-top: 75px; padding: 0 30px; }
+  .post-corpo h2 { font-size: 40px; }
+  .post-corpo h3 { font-size: 34px; }
+  .carosello--altri { padding: 75px 20px 60px; }
+  .carosello--altri .t3 { font-size: 34px; }
+  .card--altri { flex-basis: 100%; }
+  .card--altri .card__img { width: 187px; }
+  .card--altri h5 { font-size: 18px; }
+}
+
+/* Gallerie dentro gli articoli (WP gallery / Elementor image-gallery): miniature quadrate 4 per riga */
+.post-corpo .post-galleria {
+  display: grid; grid-template-columns: repeat(4, 150px); gap: 20px 24px;
+  justify-content: start; margin: 30px 0 0 10px;
+}
+.post-corpo .post-galleria[style] { grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin-left: 0; }
+.post-corpo .post-galleria a { display: block; aspect-ratio: 1; overflow: hidden; }
+.post-corpo .post-galleria img { width: 100%; height: 100%; object-fit: cover; margin: 0; transition: opacity .3s; }
+.post-corpo .post-galleria a:hover img { opacity: .8; }
+.post-corpo hr { border: 0; border-top: 1px solid var(--testo); margin: 10px 0 20px; }
+@media (max-width: 850px) {
+  .post-corpo .post-galleria { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-left: 0; }
+  .post-corpo .post-galleria[style] { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* Righe a più colonne (sezioni Elementor dentro l'articolo) */
+.post-riga { display: flex; gap: 20px; margin: 20px 0; }
+.post-col { flex: 1 1 0; min-width: 0; }
+@media (max-width: 850px) { .post-riga { flex-direction: column; } }
+@media (max-width: 850px) {
+  .carosello--altri .carosello__freccia { display: block; top: calc(50% + 20px); }
+  .carosello--altri .carosello__freccia--prev { left: 0; }
+  .carosello--altri .carosello__freccia--next { right: 0; }
+  .carosello--altri { padding-top: 95px; }
+}
+
+/* Pagine legali */
+.legale { margin-bottom: 80px; }
+.legale h3 { font-size: 32px; margin: 36px 0 12px; }
+.legale ul { padding-left: 20px; }
+.legale li { margin-bottom: 8px; }
