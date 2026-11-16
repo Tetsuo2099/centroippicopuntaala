@@ -242,6 +242,10 @@ if __name__ == "__main__":
     build()
     if "--serve" in sys.argv:
         import http.server, functools
-        h = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(OUT))
+        class NoCache(http.server.SimpleHTTPRequestHandler):
+            def end_headers(self):
+                self.send_header("Cache-Control", "no-store, must-revalidate")
+                super().end_headers()
+        h = functools.partial(NoCache, directory=str(OUT))
         print("http://localhost:8790")
         http.server.ThreadingHTTPServer(("", 8790), h).serve_forever()
