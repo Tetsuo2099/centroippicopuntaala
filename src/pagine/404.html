@@ -6,3 +6,7 @@
     <a class="btn btn--sabbia" href="/">Torna alla home</a>
   </div>
 </section>
+<script>
+/* vecchi link WordPress a foto e PDF: wp-content/uploads → media */
+(function(){var m=location.pathname.match(/^\/wp-content\/uploads\/(.+)$/);if(m)location.replace('/media/'+m[1]);})();
+</script>

@@ -37,6 +37,7 @@ REDIRECT = {  # vecchi URL WordPress → nuovi
     "/category/uncategorized/": "/blog/",
     "/author/sadmin/": "/blog/",
     "/home/": "/",
+    "/feed/": "/blog/",
 }
 MAX_LATO = 2000  # px: immagini più grandi vengono ridotte
 
@@ -225,6 +226,7 @@ def build():
              for u, m in pagine if not m.get("noindex") and not m.get("file")]
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                      + "\n".join(righe) + "\n</urlset>\n", encoding="utf-8")
+    shutil.copy2(OUT / "sitemap.xml", OUT / "sitemap_index.xml")  # vecchio URL Yoast
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMINIO}/sitemap.xml\n", encoding="utf-8")
     (OUT / "CNAME").write_text(DOMINIO.split("//")[1] + "\n", encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
