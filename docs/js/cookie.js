@@ -1,6 +1,7 @@
 // Consenso cookie (GDPR): il Meta Pixel parte SOLO dopo "Accetta" o consenso marketing.
 // Scelta salvata in localStorage 'cip-consenso' = {marketing:bool, data:ISO}. Riaperto da [data-cookie-preferenze].
 (() => {
+  const EN = document.documentElement.lang === 'en';
   const CHIAVE = 'cip-consenso', PIXEL_ID = '2933320600326318', DURATA_GIORNI = 180;
   const leggi = () => {
     try {
@@ -25,18 +26,18 @@
   const banner = document.createElement('div');
   banner.className = 'cookie';
   banner.setAttribute('role', 'dialog');
-  banner.setAttribute('aria-label', 'Preferenze cookie');
+  banner.setAttribute('aria-label', EN ? 'Cookie preferences' : 'Preferenze cookie');
   banner.innerHTML = `
     <div class="cookie__in">
-      <p>Usiamo cookie tecnici necessari al funzionamento del sito e, solo con il tuo consenso, cookie di marketing (Meta Pixel) per misurare l'efficacia delle nostre comunicazioni. Puoi cambiare idea in qualsiasi momento da "Preferenze cookie" in fondo alla pagina. <a href="/cookie-policy/">Cookie policy</a></p>
+      <p>${EN ? `We use technical cookies that are necessary for the website to work and, only with your consent, marketing cookies (Meta Pixel) to measure how effective our communication is. You can change your mind at any time from "Cookie preferences" at the bottom of the page. <a href="/cookie-policy/" hreflang="it">Cookie policy</a>` : `Usiamo cookie tecnici necessari al funzionamento del sito e, solo con il tuo consenso, cookie di marketing (Meta Pixel) per misurare l'efficacia delle nostre comunicazioni. Puoi cambiare idea in qualsiasi momento da "Preferenze cookie" in fondo alla pagina. <a href="/cookie-policy/">Cookie policy</a>`}</p>
       <div class="cookie__dettaglio" hidden>
-        <label><input type="checkbox" checked disabled> Necessari — sempre attivi</label>
+        <label><input type="checkbox" checked disabled> ${EN ? 'Necessary — always active' : 'Necessari — sempre attivi'}</label>
         <label><input type="checkbox" class="cookie__mkt"> Marketing — Meta Pixel</label>
       </div>
       <div class="cookie__azioni">
-        <button type="button" class="cookie__btn cookie__btn--link" data-az="preferenze">Preferenze</button>
-        <button type="button" class="cookie__btn" data-az="rifiuta">Rifiuta</button>
-        <button type="button" class="cookie__btn cookie__btn--pieno" data-az="accetta">Accetta</button>
+        <button type="button" class="cookie__btn cookie__btn--link" data-az="preferenze">${EN ? 'Preferences' : 'Preferenze'}</button>
+        <button type="button" class="cookie__btn" data-az="rifiuta">${EN ? 'Reject' : 'Rifiuta'}</button>
+        <button type="button" class="cookie__btn cookie__btn--pieno" data-az="accetta">${EN ? 'Accept' : 'Accetta'}</button>
       </div>
     </div>`;
   const apri = () => {
@@ -51,7 +52,7 @@
     if (!az) return;
     const det = banner.querySelector('.cookie__dettaglio');
     if (az === 'preferenze') {
-      if (det.hidden) { det.hidden = false; e.target.textContent = 'Salva scelta'; return; }
+      if (det.hidden) { det.hidden = false; e.target.textContent = EN ? 'Save choice' : 'Salva scelta'; return; }
       salva(banner.querySelector('.cookie__mkt').checked);
     } else salva(az === 'accetta');
     chiudi();

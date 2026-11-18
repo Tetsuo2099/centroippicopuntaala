@@ -1,5 +1,6 @@
 // CIP — componenti: galleria a striscia (autoplay) + lightbox accessibile + video di sfondo
 (() => {
+  const EN = document.documentElement.lang === 'en';
   const ridotto = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Video di sfondo: con "riduci movimento" restano fermi sul poster
@@ -33,10 +34,10 @@
   let lb, img, num, voci = [], i = 0, ultimo = null;
   const crea = () => {
     lb = document.createElement('div');
-    lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Galleria immagini');
-    lb.innerHTML = '<button type="button" class="lb__x" aria-label="Chiudi">&times;</button>' +
-      '<button type="button" class="lb__prev" aria-label="Immagine precedente">&#8249;</button>' +
-      '<img class="lb__img" alt=""><button type="button" class="lb__next" aria-label="Immagine successiva">&#8250;</button><div class="lb__n" aria-live="polite"></div>';
+    lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', EN ? 'Image gallery' : 'Galleria immagini');
+    lb.innerHTML = `<button type="button" class="lb__x" aria-label="${EN ? 'Close' : 'Chiudi'}">&times;</button>` +
+      `<button type="button" class="lb__prev" aria-label="${EN ? 'Previous image' : 'Immagine precedente'}">&#8249;</button>` +
+      `<img class="lb__img" alt=""><button type="button" class="lb__next" aria-label="${EN ? 'Next image' : 'Immagine successiva'}">&#8250;</button><div class="lb__n" aria-live="polite"></div>`;
     document.body.appendChild(lb);
     img = lb.querySelector('.lb__img'); num = lb.querySelector('.lb__n');
     lb.querySelector('.lb__x').onclick = chiudi;
@@ -84,15 +85,15 @@
     f.addEventListener('submit', async (e) => {
       if (f.querySelector('[name=access_key]').value.startsWith('WEB3FORMS_KEY')) return; // chiave non ancora inserita: invio nativo
       e.preventDefault();
-      btn.disabled = true; stato.className = 'form__stato'; stato.textContent = 'Invio in corso…';
+      btn.disabled = true; stato.className = 'form__stato'; stato.textContent = EN ? 'Sending…' : 'Invio in corso…';
       try {
         const r = await fetch(f.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) });
         const d = await r.json();
         if (!d.success) throw new Error(d.message);
-        f.reset(); stato.textContent = f.dataset.ok || 'Grazie! Il tuo messaggio è stato inviato.';
+        f.reset(); stato.textContent = f.dataset.ok || (EN ? 'Thank you! Your message has been sent.' : 'Grazie! Il tuo messaggio è stato inviato.');
       } catch (_) {
         stato.className = 'form__stato errore';
-        stato.textContent = 'Non è stato possibile inviare il modulo. Riprova o scrivici a cippuntaala@gmail.com.';
+        stato.textContent = EN ? 'Sorry, the form could not be sent. Please try again or email us at cippuntaala@gmail.com.' : 'Non è stato possibile inviare il modulo. Riprova o scrivici a cippuntaala@gmail.com.';
       }
       btn.disabled = false;
     });

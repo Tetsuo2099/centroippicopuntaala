@@ -32,6 +32,30 @@ MENU = [
     ("Eventi", "/eventi/"),
     ("Contatti", "/contatti/"),
 ]
+MENU_EN = [
+    ("Home", "/en/"),
+    ("Riding lessons", "/en/riding-lessons/"),
+    ("Polo Club", "/en/polo-club/"),
+    ("Summer Camps", "/en/summer-camps/"),
+    ("Horse Livery", "/en/horse-livery/"),
+    ("Riding Clinics", "/en/riding-clinics/"),
+    ("Fox hunting", "/en/fox-hunting/"),
+    ("Events", "/en/events/"),
+    ("Contact", "/en/contact/"),
+]
+# testi fissi del layout per lingua
+T = {
+    "it": {"lang": "it", "og_locale": "it_IT", "og_locale_alt": "en_GB", "home": "/",
+           "t_menu_principale": "Menu principale", "t_chiudi_menu": "Chiudi menu", "t_dove": "Dove siamo",
+           "t_indicazioni": "Indicazioni", "t_orari": "Orari: 09-19 (tutti i giorni)", "t_contatti": "Contatti",
+           "t_diritti": "Tutti i diritti riservati.", "t_affiliato": "Centro affiliato", "t_pref_cookie": "Preferenze cookie",
+           "t_torna_su": "Torna su", "alt_lang": "en", "alt_nome": "English version", "alt_sigla": "EN"},
+    "en": {"lang": "en", "og_locale": "en_GB", "og_locale_alt": "it_IT", "home": "/en/",
+           "t_menu_principale": "Main menu", "t_chiudi_menu": "Close menu", "t_dove": "Find us",
+           "t_indicazioni": "Directions", "t_orari": "Open daily: 9am–7pm", "t_contatti": "Contact",
+           "t_diritti": "All rights reserved.", "t_affiliato": "Affiliated centre", "t_pref_cookie": "Cookie preferences",
+           "t_torna_su": "Back to top", "alt_lang": "it", "alt_nome": "Versione italiana", "alt_sigla": "IT"},
+}
 REDIRECT = {  # vecchi URL WordPress → nuovi
     "/calendar/eventi/": "/eventi/",
     "/category/uncategorized/": "/blog/",
@@ -53,17 +77,29 @@ def leggi_pagina(f):
     return meta, testo[m.end():] if m else testo
 
 
-def menu_html(url):
+def menu_html(url, lingua="it"):
     righe = []
-    for nome, href in MENU:
+    for nome, href in (MENU_EN if lingua == "en" else MENU):
         cur = ' aria-current="page"' if href == url else ""
         righe.append(f'    <li><a href="{href}"{cur}>{nome}</a></li>')
     return "\n".join(righe)
 
 
-def render(layout, slug, meta, contenuto):
+def render(layout, slug, meta, contenuto, lingua="it", alt=None):
+    """alt = URL della stessa pagina nell'altra lingua (None se non esiste)."""
     url = meta.get("url") or url_di(slug)
+    t = T[lingua]
+    if alt:
+        it_u, en_u = (url, alt) if lingua == "it" else (alt, url)
+        hreflang = (f'<link rel="alternate" hreflang="it" href="{DOMINIO}{it_u}">\n'
+                    f'<link rel="alternate" hreflang="en" href="{DOMINIO}{en_u}">\n'
+                    f'<link rel="alternate" hreflang="x-default" href="{DOMINIO}{it_u}">')
+    else:
+        hreflang = ""
     val = {
+        **t,
+        "hreflang": hreflang,
+        "alt_url": alt or ("/en/" if lingua == "it" else "/"),
         "title": meta.get("title", "Centro Ippico Punta Ala"),
         "description": meta.get("description", ""),
         "canonical": DOMINIO + url,
@@ -72,7 +108,7 @@ def render(layout, slug, meta, contenuto):
         "head_extra": meta.get("head_extra", "") + (f'<link rel="stylesheet" href="/css/p-{slug}.css?v={V}">' if (SRC / "css" / f"p-{slug}.css").exists() else ""),
         "body_extra": f'<script src="/js/p-{slug}.js?v={V}" defer></script>' if (SRC / "js" / f"p-{slug}.js").exists() else "",
         "body_class": meta.get("body_class", ""),
-        "menu": menu_html(url),
+        "menu": menu_html(url, lingua),
         "content": contenuto,
         "v": V,
     }
@@ -135,11 +171,11 @@ def carica_post():
     return posts
 
 
-def card_home(m):
+def card_home(m, lingua="it"):
     u = f"/{m['slug']}/"
     return (f'    <article class="card">\n      <a class="card__img" href="{u}" tabindex="-1"><img src="{m.get("thumb") or m.get("featured")}" alt="" loading="lazy"></a>\n'
             f'      <h5><a href="{u}">{esc(m.get("h1"))}</a></h5>\n      <p>{esc(m.get("excerpt"))}</p>\n'
-            f'      <a class="btn btn--sm" href="{u}">Leggi tutto</a>\n    </article>')
+            f'      <a class="btn btn--sm" href="{u}"' + (' hreflang="it">Read more' if lingua == "en" else '>Leggi tutto') + '</a>\n    </article>')
 
 
 def card_altri(m):
@@ -161,8 +197,8 @@ def elenco_post(posts):
     return "\n".join(righe)
 
 
-def ultimi_post(posts, n=12):
-    return "\n".join(card_home(m) for m, _ in posts[:n])
+def ultimi_post(posts, n=12, lingua="it"):
+    return "\n".join(card_home(m, lingua) for m, _ in posts[:n])
 
 
 def pagina_post(m, corpo, posts):
@@ -183,6 +219,18 @@ def pagina_post(m, corpo, posts):
 </section>"""
 
 
+def galleria_en(slug, corpo, m):
+    """<!--GALLERIA--> → la galleria della pagina italiana, con alt e etichette tradotti."""
+    if "<!--GALLERIA-->" not in corpo:
+        return corpo
+    it = (SRC / "pagine" / f"{slug}.html").read_text(encoding="utf-8")
+    i = min(x for x in (it.find('<div class="galleria"'), it.find('<div class="scroller"')) if x >= 0)
+    g = it[i:]
+    g = re.sub(r'alt="[^"]*— foto (\d+)"', lambda x: f'alt="{m.get("alt_galleria", "Centro Ippico Punta Ala")} — photo {x.group(1)}"', g)
+    g = g.replace('aria-label="Foto precedenti"', 'aria-label="Previous photos"').replace('aria-label="Foto successive"', 'aria-label="Next photos"')
+    return corpo.replace("<!--GALLERIA-->", g)
+
+
 def build():
     # svuota docs/ tranne media/ (le immagini già ottimizzate restano) e CNAME
     OUT.mkdir(exist_ok=True)
@@ -201,10 +249,20 @@ def build():
         m["body_class"] = (m.get("body_class", "") + " post").strip()
         m.setdefault("og_image", m.get("featured"))
         sorgenti.append((m["slug"], m, pagina_post(m, corpo, posts)))
+    # versione inglese: src/en/<slug-italiano>.html, meta con "url": "/en/..."
+    alt = {}
+    for f in sorted((SRC / "en").glob("*.html")):
+        m, corpo = leggi_pagina(f)
+        it_url = url_di(f.stem)
+        alt[it_url], alt[m["url"]] = m["url"], it_url
+        m["lingua"] = "en"
+        sorgenti.append((f.stem, m, galleria_en(f.stem, corpo, m)))
     pagine = []
     for slug, meta, contenuto in sorgenti:
-        contenuto = contenuto.replace("<!--ULTIMI_POST-->", ultimi_post(posts)).replace("<!--ELENCO_POST-->", elenco_post(posts))
-        html, url = render(layout, slug, meta, contenuto)
+        lingua = meta.get("lingua", "it")
+        contenuto = contenuto.replace("<!--ULTIMI_POST-->", ultimi_post(posts, lingua=lingua)).replace("<!--ELENCO_POST-->", elenco_post(posts))
+        u = meta.get("url") or url_di(slug)
+        html, url = render(layout, slug, meta, contenuto, lingua, alt.get(u))
         if meta.get("file"):
             dest = OUT / meta["file"]
         else:

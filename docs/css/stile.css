@@ -83,6 +83,23 @@ ul { margin: 0; }
 }
 .header__menu:hover { color: #ffffffa1; }
 .header__menu svg { width: 17px; height: 17px; fill: currentColor; }
+.header__lingua {
+  margin: 0 28px 0 auto; padding: 6px 9px; border: 1px solid #ffffff80;
+  color: var(--bianco); font: 400 14px/1 var(--f-testo); letter-spacing: 1.5px; text-decoration: none;
+  transition: background .3s, color .3s;
+}
+.header__lingua:hover { background: var(--bianco); color: var(--navy); }
+/* avviso "English version" per browser non italiani */
+.avviso-lingua {
+  position: fixed; top: 78px; right: 20px; z-index: 890; display: flex; align-items: center; gap: 4px;
+  background: var(--navy); color: var(--bianco); font: 400 15px/1 var(--f-testo); letter-spacing: .5px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25); opacity: 0; transform: translateY(-8px); transition: opacity .4s, transform .4s;
+}
+.avviso-lingua.aperto { opacity: 1; transform: none; }
+.avviso-lingua a { color: inherit; text-decoration: none; padding: 13px 4px 13px 16px; }
+.avviso-lingua a:hover { text-decoration: underline; }
+.avviso-lingua button { background: none; border: 0; color: inherit; font-size: 20px; line-height: 1; padding: 10px 12px; cursor: pointer; opacity: .7; }
+.avviso-lingua button:hover { opacity: 1; }
 
 /* ---------- Menu a tutto schermo (popup) ---------- */
 .menu {
@@ -297,6 +314,8 @@ a.footer__btn:hover { color: var(--bianco-50); }
   .header__logo { padding: 6px; }
   .header__logo img { width: 40px; height: 40px; }
   .header__menu { font-size: 15px; }
+  .header__lingua { margin-right: 18px; font-size: 13px; padding: 5px 7px; }
+  .avviso-lingua { top: 70px; right: 12px; left: 12px; justify-content: space-between; }
 
   .menu a { font-size: 34px; }
   .menu li:not(:last-child) { padding-bottom: 20px; }

@@ -6,7 +6,7 @@
   const corpo = cal.querySelector('tbody');
   const oggi = new Date();
   let m = new Date(oggi.getFullYear(), oggi.getMonth(), 1);
-  const nomi = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' });
+  const nomi = new Intl.DateTimeFormat(document.documentElement.lang === 'en' ? 'en-GB' : 'it-IT', { month: 'long', year: 'numeric' });
 
   const disegna = () => {
     titolo.textContent = nomi.format(m);

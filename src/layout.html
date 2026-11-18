@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="{{lang}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,9 @@
 <meta name="description" content="{{description}}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="{{canonical}}">
-<meta property="og:locale" content="it_IT">
+{{hreflang}}
+<meta property="og:locale" content="{{og_locale}}">
+<meta property="og:locale:alternate" content="{{og_locale_alt}}">
 <meta property="og:type" content="{{og_type}}">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{description}}">
@@ -30,14 +32,15 @@
 <body class="{{body_class}}">
 
 <header class="header">
-  <a class="header__logo" href="/" aria-label="Centro Ippico Punta Ala — Home"><img src="/media/2021/05/testa_bianca_favicon-150x150.png" alt="" width="45" height="45"></a>
+  <a class="header__logo" href="{{home}}" aria-label="Centro Ippico Punta Ala — Home"><img src="/media/2021/05/testa_bianca_favicon-150x150.png" alt="" width="45" height="45"></a>
   <button class="header__menu" type="button" aria-controls="menu" aria-expanded="false">Menu
     <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
   </button>
+  <a class="header__lingua" href="{{alt_url}}" hreflang="{{alt_lang}}" lang="{{alt_lang}}" aria-label="{{alt_nome}}">{{alt_sigla}}</a>
 </header>
 
-<nav class="menu" id="menu" aria-label="Menu principale" aria-hidden="true">
-  <button class="menu__chiudi" type="button" aria-label="Chiudi menu">
+<nav class="menu" id="menu" aria-label="{{t_menu_principale}}" aria-hidden="true">
+  <button class="menu__chiudi" type="button" aria-label="{{t_chiudi_menu}}">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/></svg>
   </button>
   <ul>
@@ -53,13 +56,13 @@
   <div class="footer">
     <div class="footer__in">
       <div class="footer__indirizzo">
-        <h4 class="t4">Dove siamo</h4>
+        <h4 class="t4">{{t_dove}}</h4>
         <p><a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x1329d0603156fc41:0x89b42a25b7a677de" target="_blank" rel="noopener">Via dell’Equitazione, 58043 Punta Ala GR</a></p>
-        <a class="footer__btn" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x1329d0603156fc41:0x89b42a25b7a677de" target="_blank" rel="noopener">Indicazioni</a><br>
-        <span class="footer__btn">Orari: 09-19 (tutti i giorni)</span>
+        <a class="footer__btn" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x1329d0603156fc41:0x89b42a25b7a677de" target="_blank" rel="noopener">{{t_indicazioni}}</a><br>
+        <span class="footer__btn">{{t_orari}}</span>
       </div>
       <div class="footer__contatti">
-        <h4 class="t4">Contatti</h4>
+        <h4 class="t4">{{t_contatti}}</h4>
         <p><a href="tel:+393534266598">tel. (+39) 353 426 6598</a></p>
         <p><a href="tel:+393892728012">tel. (+39) 389 272 8012</a></p>
         <p><a href="mailto:cippuntaala@gmail.com">cippuntaala@gmail.com</a></p>
@@ -72,12 +75,12 @@
   </div>
   <div class="copyright">
     <div class="copyright__in">
-      <p>© 2024 Centro Ippico Punta Ala. Tutti i diritti riservati.</p>
+      <p>© 2024 Centro Ippico Punta Ala. {{t_diritti}}</p>
       <div class="copyright__aff">
-        <a href="https://www.fise.it/" target="_blank" rel="noopener">Centro affiliato</a>
+        <a href="https://www.fise.it/" target="_blank" rel="noopener">{{t_affiliato}}</a>
         <img src="/media/2021/05/FISE_logo-300x300.png" alt="FISE — Federazione Italiana Sport Equestri" width="135" height="135" loading="lazy">
       </div>
-      <span class="copyright__legal"><a href="/privacy-policy/">Privacy Policy</a> · <a href="/cookie-policy/">Cookie Policy</a> · <a href="#" data-cookie-preferenze>Preferenze cookie</a></span>
+      <span class="copyright__legal"><a href="/privacy-policy/">Privacy Policy</a> · <a href="/cookie-policy/">Cookie Policy</a> · <a href="#" data-cookie-preferenze>{{t_pref_cookie}}</a></span>
     </div>
   </div>
   <div class="credits-fascia">
@@ -85,7 +88,7 @@
   </div>
 </footer>
 
-<a class="su" href="#" aria-label="Torna su"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.6 4.3 15.3l1.4 1.4L12 10.4l6.3 6.3 1.4-1.4z"/></svg></a>
+<a class="su" href="#" aria-label="{{t_torna_su}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.6 4.3 15.3l1.4 1.4L12 10.4l6.3 6.3 1.4-1.4z"/></svg></a>
 <script src="/js/main.js?v={{v}}" defer></script>
 <script src="/js/componenti.js?v={{v}}" defer></script>
 <script src="/js/cookie.js?v={{v}}" defer></script>

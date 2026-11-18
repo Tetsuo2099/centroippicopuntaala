@@ -42,6 +42,21 @@
     zoom(); addEventListener('scroll', zoom, { passive: true });
   }
 
+  // Avviso versione inglese: solo su pagine italiane, browser non in italiano, non già chiuso
+  const en = document.querySelector('link[rel=alternate][hreflang=en]');
+  const lingue = navigator.languages?.length ? navigator.languages : [navigator.language || 'it'];
+  let chiuso = false;
+  try { chiuso = localStorage.getItem('cip-lingua') === 'chiuso'; } catch (e) {}
+  if (document.documentElement.lang === 'it' && en && !chiuso && !lingue.some((l) => /^it\b/i.test(l))) {
+    const av = document.createElement('div');
+    av.className = 'avviso-lingua'; av.lang = 'en';
+    av.innerHTML = `<a href="${new URL(en.href).pathname}" hreflang="en">English version →</a><button type="button" aria-label="Close">&times;</button>`;
+    av.querySelector('button').onclick = () => { try { localStorage.setItem('cip-lingua', 'chiuso'); } catch (e) {} av.remove(); };
+    av.querySelector('a').onclick = () => { try { localStorage.setItem('cip-lingua', 'chiuso'); } catch (e) {} };
+    document.body.appendChild(av);
+    setTimeout(() => av.classList.add('aperto'), 1200);
+  }
+
   // Fade d'ingresso
   const io = new IntersectionObserver((voci) => voci.forEach((v) => {
     if (v.isIntersecting) { v.target.classList.add('visto'); io.unobserve(v.target); }
